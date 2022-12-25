@@ -1,23 +1,38 @@
 package com.lucasgoiana.helpdesk.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lucasgoiana.helpdesk.enums.Perfil;
+import org.springframework.context.annotation.Primary;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public abstract class Pessoa {
+@Entity
+public abstract class Pessoa implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     protected String nome;
+
+    @Column(unique = true)
     protected String cpf;
+
+    @Column(unique = true)
     protected String email;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name ="Perfis")
     protected Set<Integer> perfis = new HashSet<>();
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
-    Pessoa(){super();addPerfil(Perfil.CLIENTE);}
 
     public Pessoa(Integer id, String nome, String cpf, String email) {
         this.id = id;
@@ -26,6 +41,11 @@ public abstract class Pessoa {
         this.email = email;
         addPerfil(Perfil.CLIENTE);
     }
+
+    public Pessoa() {
+        super();addPerfil(Perfil.CLIENTE);
+    }
+
 
     public Integer getId() {
         return id;

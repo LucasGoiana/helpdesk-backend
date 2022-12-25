@@ -1,10 +1,15 @@
 package com.lucasgoiana.helpdesk.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tecnico extends Pessoa {
+@Entity
+public class Tecnico extends Pessoa implements Serializable {
 
+    @OneToMany( mappedBy = "tecnico")
     private List<Chamado> chamados = new ArrayList<>();
 
     public Tecnico() {
