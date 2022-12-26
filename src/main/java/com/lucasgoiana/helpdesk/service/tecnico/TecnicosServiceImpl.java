@@ -11,7 +11,9 @@ import com.lucasgoiana.helpdesk.repositories.ClienteRepository;
 import com.lucasgoiana.helpdesk.repositories.PessoaRepository;
 import com.lucasgoiana.helpdesk.repositories.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -60,8 +62,8 @@ public class TecnicosServiceImpl implements TecnicosService {
 
     @Override
     public Tecnico findById(Integer id) {
-        Optional<Tecnico> obj = tecnicoRepository.findById(id);
+        var obj = tecnicoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tecnico Não Encontrado"));
 
-        return obj.orElse(null);
+        return obj;
     }
 }
