@@ -1,5 +1,7 @@
 package com.lucasgoiana.helpdesk.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
@@ -10,6 +12,7 @@ import java.util.List;
 public class Cliente extends Pessoa implements Serializable
 {
 
+    @JsonIgnore
     @OneToMany( mappedBy = "cliente")
     private List<Chamado> chamados = new ArrayList<>();
 
