@@ -36,6 +36,6 @@ public class TecnicoDTO {
         this.senha = tecnicoEntity.getSenha();
         this.perfis = tecnicoEntity.getPerfis().stream().map(x -> x.name()).collect(Collectors.toSet());
         this.dataCriacao = tecnicoEntity.getDataCriacao();
-    }
+     }
 
 }
