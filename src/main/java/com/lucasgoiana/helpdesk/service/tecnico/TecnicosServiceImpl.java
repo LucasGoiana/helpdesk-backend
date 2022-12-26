@@ -1,5 +1,6 @@
 package com.lucasgoiana.helpdesk.service.tecnico;
 
+import com.lucasgoiana.helpdesk.dto.TecnicoDTO;
 import com.lucasgoiana.helpdesk.entities.Chamado;
 import com.lucasgoiana.helpdesk.entities.Cliente;
 import com.lucasgoiana.helpdesk.entities.Tecnico;
@@ -12,11 +13,14 @@ import com.lucasgoiana.helpdesk.repositories.PessoaRepository;
 import com.lucasgoiana.helpdesk.repositories.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TecnicosServiceImpl implements TecnicosService {
@@ -64,6 +68,12 @@ public class TecnicosServiceImpl implements TecnicosService {
     public Tecnico findById(Integer id) {
         var obj = tecnicoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tecnico Não Encontrado"));
 
+        return obj;
+    }
+
+    @Override
+    public List<Tecnico> findAll() {
+        List<Tecnico> obj = tecnicoRepository.findAll();
         return obj;
     }
 }

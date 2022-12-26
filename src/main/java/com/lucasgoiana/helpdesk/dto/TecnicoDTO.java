@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -38,4 +39,17 @@ public class TecnicoDTO {
         this.dataCriacao = tecnicoEntity.getDataCriacao();
      }
 
+//    public static TecnicoDTO converter(Tecnico tecnicoEntity){
+//        TecnicoDTO tecnicoDTO = new TecnicoDTO();
+//
+//        tecnicoDTO.setId(tecnicoEntity.getId());
+//        tecnicoDTO.setNome(tecnicoEntity.getNome());
+//        tecnicoDTO.setCpf(tecnicoEntity.getCpf());
+//        tecnicoDTO.setEmail(tecnicoEntity.getEmail());
+//        tecnicoDTO.setSenha(tecnicoEntity.getSenha());
+//        tecnicoDTO.setPerfis(tecnicoEntity.getPerfis().stream().map(x -> x.name()).collect(Collectors.toSet()));
+//        tecnicoDTO.setDataCriacao(tecnicoEntity.getDataCriacao());
+//
+//        return tecnicoDTO;
+//    }
 }
