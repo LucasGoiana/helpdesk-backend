@@ -16,8 +16,8 @@ public class Cliente extends Pessoa implements Serializable
     public Cliente() {
     }
 
-    public Cliente(Integer id, String nome, String cpf, String email) {
-        super(id, nome, cpf, email);
+    public Cliente(Integer id, String nome, String cpf, String email, String senha) {
+        super(id, nome, cpf, email, senha);
     }
 
     public List<Chamado> getChamados() {

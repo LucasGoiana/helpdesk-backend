@@ -26,6 +26,8 @@ public abstract class Pessoa implements Serializable {
     @Column(unique = true)
     protected String email;
 
+    protected String senha;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name ="Perfis")
     protected Set<Integer> perfis = new HashSet<>();
@@ -34,11 +36,12 @@ public abstract class Pessoa implements Serializable {
     protected LocalDate dataCriacao = LocalDate.now();
 
 
-    public Pessoa(Integer id, String nome, String cpf, String email) {
+    public Pessoa(Integer id, String nome, String cpf, String email, String senha) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
+        this.senha = senha;
         addPerfil(Perfil.CLIENTE);
     }
 
