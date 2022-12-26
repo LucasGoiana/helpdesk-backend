@@ -2,6 +2,9 @@ package com.lucasgoiana.helpdesk.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lucasgoiana.helpdesk.enums.Perfil;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
@@ -13,6 +16,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode
 public abstract class Pessoa implements Serializable {
 
     @Id
@@ -50,37 +56,6 @@ public abstract class Pessoa implements Serializable {
     }
 
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public Set<Perfil> getPerfis() {
         return perfis.stream().map(x -> Perfil.toEnum( x )).collect(Collectors.toSet());
@@ -90,24 +65,4 @@ public abstract class Pessoa implements Serializable {
         this.perfis.add(perfis.getCodigo());
     }
 
-    public LocalDate getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(LocalDate dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pessoa pessoa = (Pessoa) o;
-        return Objects.equals(id, pessoa.id) && Objects.equals(cpf, pessoa.cpf);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, cpf);
-    }
 }

@@ -1,6 +1,8 @@
 package com.lucasgoiana.helpdesk.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Tecnico extends Pessoa implements Serializable {
 
     @JsonIgnore
@@ -23,13 +27,6 @@ public class Tecnico extends Pessoa implements Serializable {
         super(id, nome, cpf, email, senha);
     }
 
-    public List<Chamado> getChamados() {
-        return chamados;
-    }
-
-    public void setChamados(List<Chamado> chamados) {
-        this.chamados = chamados;
-    }
 
 
 }
