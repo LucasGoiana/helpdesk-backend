@@ -8,19 +8,14 @@ import com.lucasgoiana.helpdesk.enums.Perfil;
 import com.lucasgoiana.helpdesk.enums.Prioridade;
 import com.lucasgoiana.helpdesk.enums.Status;
 import com.lucasgoiana.helpdesk.repositories.ChamadoRepository;
-import com.lucasgoiana.helpdesk.repositories.ClienteRepository;
 import com.lucasgoiana.helpdesk.repositories.PessoaRepository;
 import com.lucasgoiana.helpdesk.repositories.TecnicoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TecnicosServiceImpl implements TecnicosService {
@@ -39,12 +34,12 @@ public class TecnicosServiceImpl implements TecnicosService {
         this.pessoaRepository = pessoaRepository;
         this.chamadoRepository = chamadoRepository;
 
-        Tecnico tec1 = new Tecnico(null, "Valdir Cezar", "550.482.150-95", "valdir@mail.com", "123");
+        com.lucasgoiana.helpdesk.entities.Tecnico tec1 = new com.lucasgoiana.helpdesk.entities.Tecnico(null, "Valdir Cezar", "550.482.150-95", "valdir@mail.com", "123");
         tec1.addPerfil(Perfil.ADMIN);
-        Tecnico tec2 = new Tecnico(null, "Richard Stallman", "903.347.070-56", "stallman@mail.com", "123");
-        Tecnico tec3 = new Tecnico(null, "Claude Elwood Shannon", "271.068.470-54", "shannon@mail.com", "123");
-        Tecnico tec4 = new Tecnico(null, "Tim Berners-Lee", "162.720.120-39", "lee@mail.com", "123");
-        Tecnico tec5 = new Tecnico(null, "Linus Torvalds", "778.556.170-27", "linus@mail.com", "123");
+        com.lucasgoiana.helpdesk.entities.Tecnico tec2 = new com.lucasgoiana.helpdesk.entities.Tecnico(null, "Richard Stallman", "903.347.070-56", "stallman@mail.com", "123");
+        com.lucasgoiana.helpdesk.entities.Tecnico tec3 = new com.lucasgoiana.helpdesk.entities.Tecnico(null, "Claude Elwood Shannon", "271.068.470-54", "shannon@mail.com", "123");
+        com.lucasgoiana.helpdesk.entities.Tecnico tec4 = new com.lucasgoiana.helpdesk.entities.Tecnico(null, "Tim Berners-Lee", "162.720.120-39", "lee@mail.com", "123");
+        com.lucasgoiana.helpdesk.entities.Tecnico tec5 = new com.lucasgoiana.helpdesk.entities.Tecnico(null, "Linus Torvalds", "778.556.170-27", "linus@mail.com", "123");
 
         Cliente cli1 = new Cliente(null, "Albert Einstein", "111.661.890-74", "einstein@mail.com", "123");
         Cliente cli2 = new Cliente(null, "Marie Curie", "322.429.140-06", "curie@mail.com", "123");
@@ -65,15 +60,22 @@ public class TecnicosServiceImpl implements TecnicosService {
     }
 
     @Override
-    public Tecnico findById(Integer id) {
+    public com.lucasgoiana.helpdesk.entities.Tecnico findById(Integer id) {
         var obj = tecnicoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tecnico Não Encontrado"));
 
         return obj;
     }
 
     @Override
-    public List<Tecnico> findAll() {
-        List<Tecnico> obj = tecnicoRepository.findAll();
+    public List<com.lucasgoiana.helpdesk.entities.Tecnico> findAll() {
+        List<com.lucasgoiana.helpdesk.entities.Tecnico> obj = tecnicoRepository.findAll();
         return obj;
+    }
+
+    @Override
+    public Tecnico create(TecnicoDTO tecnicoDTO) {
+        tecnicoDTO.setId(null);
+        Tecnico tecnico = new Tecnico(tecnicoDTO);
+        return tecnicoRepository.save(tecnico);
     }
 }
