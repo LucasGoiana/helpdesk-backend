@@ -24,7 +24,7 @@ public class Tecnico extends Pessoa implements Serializable {
 
     public Tecnico() {
         super();
-        addPerfil(Perfil.CLIENTE);
+        addPerfil(Perfil.TECNICO);
     }
 
     public Tecnico(Integer id, String nome, String cpf, String email, String senha) {
@@ -32,7 +32,7 @@ public class Tecnico extends Pessoa implements Serializable {
     }
 
     public Tecnico (TecnicoDTO tecnicoDTO){
-
+        super(Perfil.TECNICO.getCodigo());
         this.id = tecnicoDTO.getId();
         this.nome = tecnicoDTO.getNome();
         this.cpf = tecnicoDTO.getCpf();

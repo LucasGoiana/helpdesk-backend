@@ -51,10 +51,13 @@ public abstract class Pessoa implements Serializable {
         addPerfil(Perfil.CLIENTE);
     }
 
-    public Pessoa() {
-        super();addPerfil(Perfil.CLIENTE);
+    public Pessoa(Integer codigoPerfil) {
+        addPerfil(Perfil.toEnum(codigoPerfil));
     }
 
+    public Pessoa() {
+
+    }
 
 
     public Set<Perfil> getPerfis() {
