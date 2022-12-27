@@ -75,7 +75,23 @@ public class TecnicosServiceImpl implements TecnicosService {
     @Override
     public Tecnico create(TecnicoDTO tecnicoDTO) {
         tecnicoDTO.setId(null);
+        validaCPFEEmail(tecnicoDTO.getId(), tecnicoDTO.getCpf(), tecnicoDTO.getEmail());
         Tecnico tecnico = new Tecnico(tecnicoDTO);
         return tecnicoRepository.save(tecnico);
+    }
+
+    private void validaCPFEEmail(Integer id, String cpf, String email){
+        var validaCpf = pessoaRepository.findByCpf(cpf);
+        var validaEmail = pessoaRepository.findByEmail(email);
+
+        if (validaCpf.isPresent() && validaCpf.get().getId() !=  id){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CPF Já Cadastrado!");
+        }
+
+        if (validaEmail.isPresent() && validaEmail.get().getId() !=  id){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "E-mail Já Cadastrado!");
+        }
+
+
     }
 }
