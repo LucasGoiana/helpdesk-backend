@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface TecnicosService {
 
-    com.lucasgoiana.helpdesk.entities.Tecnico findById(Integer id);
+    Tecnico findById(Integer id);
 
-    List<com.lucasgoiana.helpdesk.entities.Tecnico> findAll();
+    List<Tecnico> findAll();
 
    Tecnico create(TecnicoDTO tecnicoDTO);
 

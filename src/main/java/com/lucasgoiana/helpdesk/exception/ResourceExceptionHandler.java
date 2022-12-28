@@ -42,4 +42,15 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<StandardError> validationErrors(ConstraintViolationException ex,
+                                                          HttpServletRequest request) {
+
+        StandardError errors = new StandardError(LocalDate.now(), HttpStatus.BAD_REQUEST.value(),
+                "Validation error", "Número do registro de contribuinte individual brasileiro (CPF) inválido", request.getRequestURI());
+
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    }
 }

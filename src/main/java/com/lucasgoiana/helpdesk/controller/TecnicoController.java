@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.Servlet;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -23,10 +22,9 @@ public class TecnicoController {
         this.tecnicosService = tecnicosService;
     }
 
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id){
-        com.lucasgoiana.helpdesk.entities.Tecnico obj = tecnicosService.findById(id);
+        Tecnico obj = tecnicosService.findById(id);
         return ResponseEntity.ok().body(new TecnicoDTO(obj));
     }
 
