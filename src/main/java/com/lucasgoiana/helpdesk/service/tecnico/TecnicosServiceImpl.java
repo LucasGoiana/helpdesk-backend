@@ -10,6 +10,7 @@ import com.lucasgoiana.helpdesk.enums.Status;
 import com.lucasgoiana.helpdesk.repositories.ChamadoRepository;
 import com.lucasgoiana.helpdesk.repositories.PessoaRepository;
 import com.lucasgoiana.helpdesk.repositories.TecnicoRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -62,7 +63,6 @@ public class TecnicosServiceImpl implements TecnicosService {
     @Override
     public com.lucasgoiana.helpdesk.entities.Tecnico findById(Integer id) {
         var obj = tecnicoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tecnico Não Encontrado"));
-
         return obj;
     }
 
@@ -78,6 +78,26 @@ public class TecnicosServiceImpl implements TecnicosService {
         validaCPFEEmail(tecnicoDTO.getId(), tecnicoDTO.getCpf(), tecnicoDTO.getEmail());
         Tecnico tecnico = new Tecnico(tecnicoDTO);
         return tecnicoRepository.save(tecnico);
+    }
+
+    @Override
+    public Tecnico update(Integer id, TecnicoDTO tecnicoDTO) {
+        tecnicoDTO.setId(id);
+        Tecnico oldObj = findById(id);
+        validaCPFEEmail(tecnicoDTO.getId(), tecnicoDTO.getCpf(), tecnicoDTO.getEmail());
+        oldObj = new Tecnico(tecnicoDTO);
+        return tecnicoRepository.save(oldObj);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        Tecnico obj = findById(id);
+        if (obj.getChamados().size() > 0) {
+            throw new DataIntegrityViolationException("Existe Chamados associado a esse Técnico");
+        }
+
+        tecnicoRepository.deleteById(id);
+
     }
 
     private void validaCPFEEmail(Integer id, String cpf, String email){

@@ -5,6 +5,7 @@ import com.lucasgoiana.helpdesk.enums.Perfil;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public abstract class Pessoa implements Serializable {
     protected Integer id;
     protected String nome;
 
+    @CPF
     @Column(unique = true)
     protected String cpf;
 

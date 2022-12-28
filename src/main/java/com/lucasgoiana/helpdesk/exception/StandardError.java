@@ -1,10 +1,11 @@
 package com.lucasgoiana.helpdesk.exception;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class StandardError  {
 
-    private Long timestamp;
+    private LocalDate timestamp;
     private Integer status;
     private String error;
     private String message;
@@ -14,7 +15,7 @@ public class StandardError  {
         super();
     }
 
-    public StandardError(Long timestamp, Integer status, String error, String message, String path) {
+    public StandardError(LocalDate timestamp, Integer status, String error, String message, String path) {
         super();
         this.timestamp = timestamp;
         this.status = status;
@@ -23,11 +24,11 @@ public class StandardError  {
         this.path = path;
     }
 
-    public Long getTimestamp() {
+    public LocalDate getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public void setTimestamp(LocalDate timestamp) {
         this.timestamp = timestamp;
     }
 

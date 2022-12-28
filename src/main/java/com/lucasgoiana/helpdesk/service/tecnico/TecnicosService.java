@@ -12,4 +12,8 @@ public interface TecnicosService {
     List<com.lucasgoiana.helpdesk.entities.Tecnico> findAll();
 
    Tecnico create(TecnicoDTO tecnicoDTO);
+
+    Tecnico update(Integer id, TecnicoDTO tecnicoDTO);
+
+    void delete(Integer id);
 }
