@@ -4,7 +4,6 @@ import com.lucasgoiana.helpdesk.dto.ChamadoDTO;
 import com.lucasgoiana.helpdesk.entities.Chamado;
 import com.lucasgoiana.helpdesk.entities.Cliente;
 import com.lucasgoiana.helpdesk.entities.Tecnico;
-import com.lucasgoiana.helpdesk.enums.Prioridade;
 import com.lucasgoiana.helpdesk.enums.Status;
 import com.lucasgoiana.helpdesk.repositories.ChamadoRepository;
 import com.lucasgoiana.helpdesk.service.cliente.ClienteService;
@@ -13,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -41,28 +41,31 @@ public class ChamadoServiceImpl implements ChamadoService {
 
     @Override
     public Chamado create(ChamadoDTO chamadoDTO) {
-        return chamadoRepository.save(newChamado(chamadoDTO));
+        return chamadoRepository.save(createOrUpdateChamado(chamadoDTO));
     }
 
-    private Chamado newChamado(ChamadoDTO chamadoDTO){
+    @Override
+    public Chamado update(Integer id, ChamadoDTO chamadoDTO) {
+        chamadoDTO.setId(id);
+        Chamado oldChamado = findById(id);
+        oldChamado = createOrUpdateChamado(chamadoDTO);
+        return chamadoRepository.save(oldChamado);
+    }
+    private Chamado createOrUpdateChamado(ChamadoDTO chamadoDTO){
         Tecnico tecnico = tecnicosService.findById(chamadoDTO.getTecnico());
         Cliente cliente = clienteService.findById(chamadoDTO.getCliente());
 
         Chamado chamado = new Chamado(cliente, tecnico, chamadoDTO);
+
+        if (chamadoDTO.getStatus().equals(Status.ENCERRADO.getCodigo())){
+            chamado.setDataFechamento(LocalDate.now());
+        }
         if (chamadoDTO.getId() != null){
             chamado.setId(chamadoDTO.getId());
         }
 
         return chamado;
     }
-
-
-
-    @Override
-    public Chamado update(Integer id, ChamadoDTO chamadoDTO) {
-        return null;
-    }
-
     @Override
     public void delete(Integer id) {
 
