@@ -2,7 +2,6 @@ package com.lucasgoiana.helpdesk.service.cliente;
 
 import com.lucasgoiana.helpdesk.dto.ClienteDTO;
 import com.lucasgoiana.helpdesk.entities.Cliente;
-import com.lucasgoiana.helpdesk.entities.Tecnico;
 import com.lucasgoiana.helpdesk.repositories.ClienteRepository;
 import com.lucasgoiana.helpdesk.service.PessoaService;
 import org.springframework.dao.DataIntegrityViolationException;

@@ -1,7 +1,6 @@
 package com.lucasgoiana.helpdesk.controller;
 
 import com.lucasgoiana.helpdesk.dto.ClienteDTO;
-import com.lucasgoiana.helpdesk.dto.TecnicoDTO;
 import com.lucasgoiana.helpdesk.entities.Cliente;
 import com.lucasgoiana.helpdesk.service.cliente.ClienteService;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +51,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{id}")
-    public void update(@PathVariable Integer id){
+    public void delete(@PathVariable Integer id){
         clienteService.delete(id);
     }
 
