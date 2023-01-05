@@ -16,6 +16,4 @@ public interface ChamadoService {
     Chamado create(ChamadoDTO chamadoDTO);
 
     Chamado update(Integer id, ChamadoDTO chamadoDTO);
-
-    void delete(Integer id);
 }

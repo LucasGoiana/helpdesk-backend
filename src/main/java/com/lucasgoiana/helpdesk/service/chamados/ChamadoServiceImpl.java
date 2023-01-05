@@ -66,8 +66,4 @@ public class ChamadoServiceImpl implements ChamadoService {
 
         return chamado;
     }
-    @Override
-    public void delete(Integer id) {
-
-    }
 }
